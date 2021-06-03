@@ -27,6 +27,15 @@ async function getRandomUser() {
     addData(newUser);
 }
 
+// Double eveyones money
+function doubleMoney() {
+    data = data.map((user) => {
+        return {...user, population: user.population * 2};
+    });
+
+    updateDOM();
+}
+
 // Add new obj to data arr
 function addData(obj) {
     data.push(obj);
@@ -47,3 +56,7 @@ function updateDOM(providedData = data) {
         main.appendChild(element);
     });
 }
+
+// Event listeners
+addUserBtn.addEventListener('click', getRandomUser);
+doubleBtn.addEventListener('click', doubleMoney);
