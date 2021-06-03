@@ -1,9 +1,9 @@
 const main = document.getElementById('main');
-const addUserBtn = document.getElementById('add-user');
+const addCountryBtn = document.getElementById('add-country');
 const doubleBtn = document.getElementById('double');
 const showMillionairesBtn = document.getElementById('show-millionaires');
 const sortBtn = document.getElementById('sort');
-const calculateWealthBtn = document.getElementById('calculate-wealth');
+const calculatePopulationBtn = document.getElementById('calculate-population');
 
 let data = [];
 
@@ -43,6 +43,25 @@ function sortByRichest() {
     updateDOM();
 }
 
+// Filter only millionaires
+function showMillionaires() {
+    const millionaires = data.filter((user) => {
+        return user.population > 1000000;
+    });
+
+    updateDOM(millionaires);
+}
+
+// Calculate the total Population
+function calculatePopulation() {
+    const population = data.reduce((acc, user) => (acc += user.population), 0);
+
+    const populationEl = document.createElement('div');
+
+    populationEl.innerHTML = `<h3>Total Population: <strong>${population}</strong></h3>`;
+    main.appendChild(populationEl);
+}
+
 // Add new obj to data arr
 function addData(obj) {
     data.push(obj);
@@ -65,6 +84,8 @@ function updateDOM(providedData = data) {
 }
 
 // Event listeners
-addUserBtn.addEventListener('click', getRandomUser);
+addCountryBtn.addEventListener('click', getRandomUser);
 doubleBtn.addEventListener('click', doubleMoney);
 sortBtn.addEventListener('click', sortByRichest);
+showMillionairesBtn.addEventListener('click', showMillionaires);
+calculatePopulationBtn.addEventListener('click', calculatePopulation);
